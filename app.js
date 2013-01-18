@@ -1,11 +1,15 @@
 var fs = require('fs');
+var os = require('os');
 var five = require("johnny-five")
 var tako = require('tako')
 
+var port  = 8000
+
 var app = tako()
+app.route('/config.json').json({host: os.hostname() + '.local:' + port});
 app.route('/').file(__dirname + '/client/index.html');
 app.route('/*').files(__dirname + '/client');
-app.httpServer.listen(8000)
+app.httpServer.listen(port)
 
 
 var meterRed = 0

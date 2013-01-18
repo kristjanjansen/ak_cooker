@@ -1,5 +1,6 @@
+$.getJSON('/config.json', function(config) {
 
-var socket = io.connect('http://localhost:8000');
+var socket = io.connect(config.host);
 
 socket.on('meterRed', function (data) {
   $('#meterRed').height(data.value)
@@ -8,3 +9,5 @@ socket.on('meterRed', function (data) {
 socket.on('meterWhite', function (data) {
   $('#meterWhite').height(data.value)
 });
+
+})
