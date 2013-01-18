@@ -11,6 +11,9 @@ app.route('/*').files(__dirname + '/client');
 app.httpServer.listen(8000)
 
 app.sockets.on('connection', function (socket) {
+  var value = 0
+  
+  app.sockets.emit('values', { scrollFirst: value});
 
   var board = new five.Board();
 
@@ -21,10 +24,13 @@ app.sockets.on('connection', function (socket) {
       freq: 100
     });
 
-    potentiometer.on("read", function( err, value ) {
-      var new_value = convertRange(value, 9, 902, 0, 100)
-      console.log(value,  new_value);
-      app.sockets.emit('values', { scrollFirst: new_value});
+    potentiometer.on("read", function( err, v ) {
+      var new_value = convertRange(v, 9, 902, 0, 150)
+      if (new_value < value || new_value > value) {
+        value = new_value
+        app.sockets.emit('values', { scrollFirst: value});
+      }
+    
     });
 
   })

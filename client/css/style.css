@@ -5,10 +5,9 @@ body {
 }
 #scrollFirst {
   position: absolute;
-  top: 100px;
+  bottom: 100px;
   left: 100px;
-  width: 15px;
+  width: 8px;
   background: white;
-  -webkit-transform: rotate(-180deg);
-  -moz-transform: rotate(-180deg);  
+  border-radius: 4px;
 }
