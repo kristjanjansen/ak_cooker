@@ -11,3 +11,12 @@ body {
   background: white;
   border-radius: 4px;
 }
+
+#scrollSecond {
+  position: absolute;
+  bottom: 100px;
+  left: 200px;
+  width: 8px;
+  background: white;
+  border-radius: 4px;
+}
