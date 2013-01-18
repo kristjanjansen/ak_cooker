@@ -36,7 +36,6 @@ board.on("ready", function() {
       var new_value = convertRange(v, 9, 902, 0, 150)
       if (new_value < meterWhite || new_value > meterWhite) {
         meterWhite = new_value
-        console.log(meterWhite)
         app.sockets.emit('meterWhite', { value: meterWhite});        
       } else {
         wait++
@@ -44,12 +43,10 @@ board.on("ready", function() {
       if (wait > delay) {
         if (meterWhite > meterRed) {
           meterRed++
-          console.log('Climb: ' + meterRed)
           app.sockets.emit('meterRed', { value: meterRed});        
         }
         if (meterWhite < meterRed) {
           meterRed--
-          console.log('Climb: ' + meterRed)
           app.sockets.emit('meterRed', { value: meterRed});        
         }
         wait = 0
