@@ -1,12 +1,10 @@
 
 var socket = io.connect('http://localhost:8000');
 
-socket.on('values', function (data) {
-  console.log(data);
-  $('#scrollFirst').height(data.scrollFirst)
+socket.on('meterRed', function (data) {
+  $('#meterRed').height(data.value)
 });
 
-socket.on('values2', function (data) {
-  console.log(data);
-  $('#scrollSecond').height(data.scrollFirst)
+socket.on('meterWhite', function (data) {
+  $('#meterWhite').height(data.value)
 });

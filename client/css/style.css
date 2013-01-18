@@ -3,20 +3,17 @@ body {
   padding: 0;
   background: black;
 }
-#scrollFirst {
+.meter {
   position: absolute;
   bottom: 100px;
-  left: 100px;
-  width: 8px;
-  background: white;
-  border-radius: 4px;
+  width: 15px;
+  border-radius: 100px;
 }
-
-#scrollSecond {
-  position: absolute;
-  bottom: 100px;
-  left: 200px;
-  width: 8px;
+#meterWhite {
+  left: 100px;
   background: white;
-  border-radius: 4px;
+}
+#meterRed {
+  left: 130px;
+  background: red;
 }

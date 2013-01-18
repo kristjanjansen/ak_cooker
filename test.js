@@ -1,15 +1,16 @@
 var fs = require('fs');
 var five = require("johnny-five")
-
 var tako = require('tako')
+
 var app = tako()
 app.route('/').file(__dirname + '/client/index.html');
 app.route('/*').files(__dirname + '/client');
 app.httpServer.listen(8000)
 
 
-var value = 0
-var value2 = 0
+var meterRed = 0
+var meterWhite = 0
+var delay = 10
 
 var board = new five.Board();
 
@@ -22,27 +23,30 @@ board.on("ready", function() {
     
     var wait = 0
 
-app.sockets.on('connection', function (socket) {
+    app.sockets.on('connection', function (socket) {
   
+    app.sockets.emit('meterWhite', { value: meterWhite});        
+    app.sockets.emit('meterRed', { value: meterRed});        
+    
     potentiometer.on("read", function( err, v ) {
       var new_value = convertRange(v, 9, 902, 0, 150)
-      if (new_value < value || new_value > value) {
-        value = new_value
-        console.log(value)
-        app.sockets.emit('values', { scrollFirst: value});        
+      if (new_value < meterWhite || new_value > meterWhite) {
+        meterWhite = new_value
+        console.log(meterWhite)
+        app.sockets.emit('meterWhite', { value: meterWhite});        
       } else {
         wait++
       }
-      if (wait > 5) {
-        if (value > value2) {
-          value2++
-          console.log('Climb: ' + value2)
-          app.sockets.emit('values2', { scrollFirst: value2});                  
+      if (wait > delay) {
+        if (meterWhite > meterRed) {
+          meterRed++
+          console.log('Climb: ' + meterRed)
+          app.sockets.emit('meterRed', { value: meterRed});        
         }
-        if (value < value2) {
-          value2--
-          console.log('Climb: ' + value2)
-          app.sockets.emit('values2', { scrollFirst: value2});                  
+        if (meterWhite < meterRed) {
+          meterRed--
+          console.log('Climb: ' + meterRed)
+          app.sockets.emit('meterRed', { value: meterRed});        
         }
         wait = 0
       }
