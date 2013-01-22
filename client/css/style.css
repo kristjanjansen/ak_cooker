@@ -11,10 +11,10 @@ body {
   border-radius: 100px;
 }
 #meterWhite {
-  left: 100px;
+  left: 130px;
   background: white;
 }
 #meterRed {
-  left: 130px;
+  left: 100px;
   background: red;
 }

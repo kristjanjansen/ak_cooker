@@ -10,14 +10,15 @@ if (host[host.length - 1] !== 'local') host.push('local')
 
 var app = tako()
 app.route('/config.json').json({host: host.join('.') + ':' + port});
-app.route('/').file(__dirname + '/client/index.html');
+app.route('/cooker1').file(__dirname + '/client/index.html');
+app.route('/cooker2').file(__dirname + '/client/index2.html');
 app.route('/*').files(__dirname + '/client');
 app.httpServer.listen(port)
 
 
 var meterRed = 0
 var meterWhite = 0
-var delay = 10
+var delay = 50
 
 var board = new five.Board();
 
