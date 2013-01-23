@@ -2,13 +2,14 @@ var movie = bonsai.run(
   document.getElementById('canvas'),
   {
     code: function() {
-      var circles = 80,
+      var circles = 100,
       centerX = 300,
       centerY = 300,
-      distance = 300,
-      radius = 7
+      distance = 150,
+      radius = 4
       
-      var container = new Group().addTo(stage);
+      var container1 = new Group().addTo(stage);
+      var container2 = new Group().addTo(stage);
       
       
       for (var i = 0; i < circles; ++i) {
@@ -16,51 +17,49 @@ var movie = bonsai.run(
             x = centerX + distance * Math.sin(f*2*Math.PI),
             y = centerY + distance * -Math.cos(f*2*Math.PI),
 
-        circle = bonsai.Path.circle(x, y, radius)
+        circle1 = bonsai.Path.circle(x, y, radius)
+          .attr({
+            fillColor: 'white',
+            opacity: 0            
+          });
+        circle1.x = x;
+        circle1.y = y;
+        circle1.addTo(container1)
+
+        circle2 = bonsai.Path.circle(x, y, radius)
           .attr({
             strokeWidth: 3
           });
-        circle.x = x;
-        circle.y = y;
-        circle.addTo(container)
+        circle2x = x;
+        circle2.y = y;
+        circle2.addTo(container2)
+        
       }
       
-      container.attr({
-        'x': 50,
-        'y': 50,
-        'rotation': 0
+      container1.attr({
+        'x': 10,
+        'y': 10
       })
-      
+
+      container2.attr({
+        'x': 10,
+        'y': 10
+      })
+            
      stage.on('message', function(data) {
-
-
-       var c = container.children();
+       
+       var c1 = container1.children();
        
        if (data.val1) {
-         var val1 = Math.round((((data.val1 - 0) * circles ) / 100) / 4) + 1
+         var val1 = Math.round((((data.val1 - 0) * circles ) / 100))
        }
-       if (data.val2) {
-         var val2 = Math.round((((data.val2 - 0) * circles ) / 100) / 4) + 1
-       }
-       for (var i = 0, circle; (circle = c[i++]); ) {
-         if (val1 && i < val1) {
-           circle.attr({
-             strokeColor: 'white',
-             fillColor: 'white'
-             }
-           );
-         } else 
-         if (val2 && i < val2) {
-           circle.attr({
-             fillColor: 'red'
-             }
-           );
-         } else {
-           circle.attr({
-             strokeColor: 'black',
-             fillColor: 'black'
-            })
-         }
+
+       for (var i = 0; i < c1.length; i++) {
+         if (i <= val1) {
+           c1[i].attr({ opacity: 1})
+         } else if (i > val1){
+           c1[i].attr({ opacity: 0})
+         } 
        }
 
       });
