@@ -46,10 +46,10 @@ var movie = bonsai.run(
        var c2 = container2.children();
        
        if (data.val1) {
-         var val1 = Math.round((((data.val1 - 0) * circles ) / 100))
+         var val1 = Math.round((((data.val1 - 0) * circles ) / 100)) - 3
        }
        if (data.val2) {
-         var val2 = Math.round((((data.val2 - 0) * circles ) / 100))
+         var val2 = Math.round((((data.val2 - 0) * circles ) / 100)) - 3
        }
        
        for (var i = 0; i < c1.length; i++) {
