@@ -2,21 +2,23 @@ var movie = bonsai.run(
   document.getElementById('canvas'),
   {
     code: function() {
-      var circles = 50,
-      centerX = 230,
-      centerY = 230,
-      distance = 200,
+      centerX = 270,
+      centerY = 270,
+      distance = 250,
       radius1 = 6
       radius2 = 4
       
       var containerWhite = new Group().addTo(stage);
       var containerRed = new Group().addTo(stage);
       
+      var max_circles = 40   
+      var slice = 2
+      var circles = max_circles * slice
       
       for (var i = 0; i < circles; ++i) {
         var f = i / circles,
-            x = centerX + distance * Math.sin(f*2*Math.PI),
-            y = centerY + distance * -Math.cos(f*2*Math.PI),
+            x = centerX + distance * Math.sin(f * slice * Math.PI),
+            y = centerY + distance * -Math.cos(f * slice * Math.PI),
 
         circleWhite = bonsai.Path.circle(x, y, radius1)
           .attr({
