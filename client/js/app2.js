@@ -2,17 +2,17 @@ var movie = bonsai.run(
   document.getElementById('canvas'),
   {
     code: function() {
-      centerX = 270,
-      centerY = 270,
-      distance = 250,
-      radius1 = 6
-      radius2 = 4
+      centerX = 400,
+      centerY = 400,
+      distance = 350,
+      radius1 = 20
+      radius2 = 12
       
       var containerWhite = new Group().addTo(stage);
       var containerRed = new Group().addTo(stage);
       
-      var max_circles = 40   
-      var slice = 2
+      var max_circles = 16   
+      var slice = 0.5
       var circles = max_circles * slice
       
       for (var i = 0; i < circles; ++i) {
