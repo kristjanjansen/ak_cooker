@@ -1,4 +1,3 @@
-
 var movie = bonsai.run(
   document.getElementById('canvas'),
   {
@@ -6,14 +5,14 @@ var movie = bonsai.run(
 
       var limit = 7
       
-      var meterWhite = new Rect(50, 50, 14, 100).attr({
+      var meterWhite = new Rect(50, 50, 30, 100).attr({
         fillColor: 'white',
         cornerRadius: 7
       })
       .addTo(stage);
       console.log(meterWhite.attr())
       
-      var meterRed = new Rect(80, 50, 14, 100).attr({
+      var meterRed = new Rect(100, 50, 30, 100).attr({
         fillColor: 'red',
         cornerRadius: 7
       })
@@ -21,10 +20,10 @@ var movie = bonsai.run(
             
      stage.on('message', function(data) {
        if (data.meterWhiteVal) {
-         meterWhite.attr('height', (data.meterWhiteVal * 1.2))
+         meterWhite.attr('height', (data.meterWhiteVal * 4))
        }
        if (data.meterRedVal) {
-         meterRed.attr('height', (data.meterRedVal * 1.2))
+         meterRed.attr('height', (data.meterRedVal * 4))
        }
        if (data.meterWhiteVal < limit) {
          meterWhite.attr('opacity', 0)
