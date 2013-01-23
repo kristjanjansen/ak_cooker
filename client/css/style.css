@@ -4,17 +4,3 @@ body {
   background: black;
   color: white;
 }
-.meter {
-  position: absolute;
-  bottom: 100px;
-  width: 15px;
-  border-radius: 100px;
-}
-#meterWhite {
-  left: 130px;
-  background: white;
-}
-#meterRed {
-  left: 100px;
-  background: red;
-}
