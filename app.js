@@ -18,7 +18,7 @@ app.httpServer.listen(port)
 
 var meterRed = 0
 var meterWhite = 0
-var delay = 50
+var delay = 70
 
 var board = new five.Board();
 

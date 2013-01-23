@@ -9,8 +9,8 @@ var movie = bonsai.run(
       radius1 = 6
       radius2 = 4
       
-      var container1 = new Group().addTo(stage);
-      var container2 = new Group().addTo(stage);
+      var containerWhite = new Group().addTo(stage);
+      var containerRed = new Group().addTo(stage);
       
       
       for (var i = 0; i < circles; ++i) {
@@ -18,23 +18,25 @@ var movie = bonsai.run(
             x = centerX + distance * Math.sin(f*2*Math.PI),
             y = centerY + distance * -Math.cos(f*2*Math.PI),
 
-        circle1 = bonsai.Path.circle(x, y, radius1)
+        circleWhite = bonsai.Path.circle(x, y, radius1)
           .attr({
             fillColor: 'white',
             opacity: 0            
           });
-        circle1.x = x;
-        circle1.y = y;
-        circle1.addTo(container1)
+          
+        circleWhite.x = x;
+        circleWhite.y = y;
+        circleWhite.addTo(containerWhite)
 
-        circle2 = bonsai.Path.circle(x, y, radius2)
+        circleRed = bonsai.Path.circle(x, y, radius2)
           .attr({
             fillColor: 'red',
             opacity: 0            
           });
-        circle2.x = x;
-        circle2.y = y;
-        circle2.addTo(container2)
+          
+        circleRed.x = x;
+        circleRed.y = y;
+        circleRed.addTo(containerRed)
         
       }
       
@@ -42,26 +44,26 @@ var movie = bonsai.run(
             
      stage.on('message', function(data) {
        
-       var c1 = container1.children();
-       var c2 = container2.children();
+       var c1 = containerWhite.children();
+       var c2 = containerRed.children();
        
-       if (data.val1) {
-         var val1 = Math.round((((data.val1 - 0) * circles ) / 100)) - 3
+       if (data.meterWhiteVal) {
+         var meterWhiteVal = Math.round((((data.meterWhiteVal - 0) * circles ) / 100)) - 3
        }
-       if (data.val2) {
-         var val2 = Math.round((((data.val2 - 0) * circles ) / 100)) - 3
+       if (data.meterRedVal) {
+         var meterRedVal = Math.round((((data.meterRedVal - 0) * circles ) / 100)) - 3
        }
        
        for (var i = 0; i < c1.length; i++) {
-         if (i <= val1) {
+         if (i <= meterWhiteVal) {
            c1[i].attr({ opacity: 1})
-         } else if (i > val1){
+         } else if (i > meterWhiteVal){
            c1[i].attr({ opacity: 0})
          }
          
-         if (i <= val2) {
+         if (i <= meterRedVal) {
            c2[i].attr({ opacity: 1})
-         } else if (i > val2){
+         } else if (i > meterRedVal){
            c2[i].attr({ opacity: 0})
          }
           
@@ -78,16 +80,18 @@ $.getJSON('/config.json', function(config) {
 
   var socket = io.connect(config.host);
 
-  socket.on('meterRed', function (data) {
-    movie.sendMessage({
-      val2: data.value
-     });
-  });
   socket.on('meterWhite', function (data) {
     movie.sendMessage({
-      val1: data.value
+      meterWhiteVal: data.value
      });
   });
+
+  socket.on('meterRed', function (data) {
+    movie.sendMessage({
+      meterRedVal: data.value
+     });
+  });
+
 
 })
 

@@ -4,37 +4,37 @@ var movie = bonsai.run(
   {
     code: function() {
 
-      var limit = 3
+      var limit = 7
       
-      var meter1 = new Rect(50, 50, 20, 100).attr({
+      var meterWhite = new Rect(50, 50, 14, 100).attr({
         fillColor: 'white',
-        cornerRadius: 3
+        cornerRadius: 7
       })
       .addTo(stage);
-      console.log(meter1.attr())
+      console.log(meterWhite.attr())
       
-      var meter2 = new Rect(80, 50, 20, 100).attr({
+      var meterRed = new Rect(80, 50, 14, 100).attr({
         fillColor: 'red',
-        cornerRadius: 3
+        cornerRadius: 7
       })
       .addTo(stage);
             
      stage.on('message', function(data) {
-       if (data.val1) {
-         meter1.attr('height', (data.val1 * 1.2))
+       if (data.meterWhiteVal) {
+         meterWhite.attr('height', (data.meterWhiteVal * 1.2))
        }
-       if (data.val2) {
-         meter2.attr('height', (data.val2 * 1.2))
+       if (data.meterRedVal) {
+         meterRed.attr('height', (data.meterRedVal * 1.2))
        }
-       if (data.val1 < limit) {
-         meter1.attr('opacity', 0)
-       } else if (data.val1 >= limit) {
-         meter1.attr('opacity', 1)
+       if (data.meterWhiteVal < limit) {
+         meterWhite.attr('opacity', 0)
+       } else if (data.meterWhiteVal >= limit) {
+         meterWhite.attr('opacity', 1)
        }
-       if (data.val2 < limit) {
-         meter2.attr('opacity', 0)
-       } else if (data.val2 >= limit) {
-         meter2.attr('opacity', 1)
+       if (data.meterRedVal < limit) {
+         meterRed.attr('opacity', 0)
+       } else if (data.meterRedVal >= limit) {
+         meterRed.attr('opacity', 1)
        }
               
       });
@@ -48,14 +48,14 @@ $.getJSON('/config.json', function(config) {
 
   var socket = io.connect(config.host);
 
-  socket.on('meterRed', function (data) {
-    movie.sendMessage({
-      val2: data.value
-     });
-  });
   socket.on('meterWhite', function (data) {
     movie.sendMessage({
-      val1: data.value
+      meterWhiteVal: data.value
+     });
+  });
+  socket.on('meterRed', function (data) {
+    movie.sendMessage({
+      meterRedVal: data.value
      });
   });
 
