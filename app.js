@@ -5,11 +5,8 @@ var tako = require('tako')
 
 var port  = 8000
 
-var host = os.hostname().split('.')
-if (host[host.length - 1] !== 'local') host.push('local')
-
 var app = tako()
-app.route('/config.json').json({host: host.join('.') + ':' + port});
+app.route('/config.json').json({'http://localhost:' + port});
 app.route('/cooker1').file(__dirname + '/client/index.html');
 app.route('/cooker2').file(__dirname + '/client/index2.html');
 app.route('/*').files(__dirname + '/client');
