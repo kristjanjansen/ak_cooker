@@ -78,22 +78,16 @@ var movie = bonsai.run(
 );
 
 
-$.getJSON('/config.json', function(config) {
-
-  var socket = io.connect(config.host);
+  var socket = io.connect();
 
   socket.on('meterWhite', function (data) {
     movie.sendMessage({
       meterWhiteVal: data.value
      });
   });
-
   socket.on('meterRed', function (data) {
     movie.sendMessage({
       meterRedVal: data.value
      });
   });
-
-
-})
 
